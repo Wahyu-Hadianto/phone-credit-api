@@ -54,7 +54,7 @@ Route::middleware('auth')->group(function(){
                 Route::post('/price',[PriceController::class,'addProductPrice']);
          // ================ IMAGE PRODUCT =========================
                 Route::get('/image',[ProductImageController::class,'index']);
-                Route::get('/image/{id}',[ProductImageController::class,'delete']);
+                Route::delete('/image/{id}',[ProductImageController::class,'delete']);
                 Route::post('/image',[ProductImageController::class,'addImage']);
                 Route::get('/{id}/image/edit',[ProductImageController::class,'editProductImage']);
                 Route::put('/{id}/image',[ProductImageController::class,'updateProductImage']);
