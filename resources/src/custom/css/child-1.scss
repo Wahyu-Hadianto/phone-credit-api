@@ -1,0 +1,12 @@
+.image-list-wrapper{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.product-detail{
+    background-color: rgba($color: #b6b6b646, $alpha:0.2);
+}
+.img-preview{
+    width: 150px;
+    height: 150px;
+    margin: 15px;
+}
