@@ -54,4 +54,10 @@ class ProductImageController extends Controller
     protected function updateProductImage(Request $request,$id){
         dd($request->all());
     }
+    protected function delete($id){
+        $color = ProductColor::find($id);
+        $color->delete();
+        alert()->success("Data Berhasil Di Hapus");
+        return redirect()->back();
+    }
 }

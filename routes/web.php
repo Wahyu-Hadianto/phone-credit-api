@@ -45,7 +45,7 @@ Route::middleware('auth')->group(function(){
                 Route::get("/storage-ram",[StorageRamController::class,'index']);
                 Route::post("/storage-ram",[StorageRamController::class,'addStorageRam']);
         
-                Route::prefix('product')->group(function(){
+        Route::prefix('product')->group(function(){
         
         // ================= PRICE PRODUCT ======================= 
                 Route::get('/{id}/price/edit',[PriceController::class,'editProductPrice']);
@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function(){
                 Route::post('/price',[PriceController::class,'addProductPrice']);
          // ================ IMAGE PRODUCT =========================
                 Route::get('/image',[ProductImageController::class,'index']);
+                Route::get('/image/{id}',[ProductImageController::class,'delete']);
                 Route::post('/image',[ProductImageController::class,'addImage']);
                 Route::get('/{id}/image/edit',[ProductImageController::class,'editProductImage']);
                 Route::put('/{id}/image',[ProductImageController::class,'updateProductImage']);

@@ -23,8 +23,14 @@
             <div class="col-3">{{ $item->brand->name }}</div>
             <div class="col-3">{{ $item->product_name }}</div>
             <div class="col-3">
-              <button class="btn btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample-{{ $item->id}}" aria-expanded="false" aria-controls="collapseExample">Detail</button>
-             <button class="btn btn-danger" disabled>Hapus</button>
+              <button class="btn btn-info btn-md" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample-{{ $item->id}}" aria-expanded="false" aria-controls="collapseExample">Detail</button>
+             <button class="btn btn-danger btn-md" onclick="deleteList(event)">
+               Hapus
+              <form action="{{url('/product/'.$item->id)}}" method="post">
+                  @csrf
+                  @method('DELETE')
+              </form>
+             </button>
           </div>
           <div class="product-detail collapse p-2" id="collapseExample-{{ $item->id }}">
             <div class="p-2">
@@ -119,7 +125,13 @@
                     @endforeach
                   </td>
                   <td>
-                      <a href="{{ url('/product/'.$image->id. '/image/edit')}}" class="btn btn-warning">Ubah</a>
+                      <a href="{{ url('/product/'.$image->id. '/image/edit')}}" class="btn btn-warning btn-md">Ubah</a>
+                      <button class="btn btn-danger btn-md" onclick="deleteList(event)">
+                        Hapus
+                       <form action="{{url('/product/image/'.$image->id)}}" method="post">
+                           @csrf
+                           @method('DELETE')
+                       </form>
                   </td>
                 </tr>
             @endforeach
@@ -130,6 +142,7 @@
     @endforeach
   </ul>
 </div>
+@include('sweet::alert')
 @endsection
 @push('child-script')
    
