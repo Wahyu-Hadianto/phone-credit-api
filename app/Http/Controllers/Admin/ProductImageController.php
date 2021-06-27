@@ -27,7 +27,7 @@ class ProductImageController extends Controller
         foreach($nameImages as $image){
             $images     = ProductImage::create([
                 'color_id'  => $color->id,
-                'image'     => $image
+                'image'     => '/storage/'. $image
             ]);
         }
         alert()->success("Data Berhasil DI tambahkan");

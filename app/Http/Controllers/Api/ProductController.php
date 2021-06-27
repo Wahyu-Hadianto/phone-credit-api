@@ -52,18 +52,31 @@ class ProductController extends Controller
         ]);
     }
     protected function getProductsPromo(){
-        $products = Product::where('is_sale',true)->get();
-        $products = ProductsResourceController::products($products,true);
+        $prices     = ProductPrice::where('is_sale',true)->get();
+        $products = ProductsResourceController::productsPromo($prices);
         return response()->json([
             'products'  => $products
         ],200);
     }
-   
     public function getProduct($slug){
         $product = Product::where('slug',$slug)->first();
         $product = ProductsResourceController::product($product);
         return response()->json([
             'product'   => $product
         ],200);
+    }
+    public function test(Request $request){
+        if($request->has('take')){
+            $products = $this->takeProduct($request->query('take'));
+            return response()->json([
+                'query'      => [
+                    'take'  => $request->query('take')
+                ],
+                'products'   => $products->original['products']   
+            ]);
+        }
+        return response()->json([
+            'message' => 'Not params'  
+        ]);
     }
 }

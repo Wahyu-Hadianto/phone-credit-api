@@ -32,34 +32,38 @@ class ProductsResourceController extends Controller
         $prices = [];
         // if request price only price sale
         if($is_sale){
-            $productSale = ProductPrice::where('product_id',$product->id)
-                                        ->where('is_sale',true)->get();
-            foreach($productSale as $price){
-                $prices[] = [
-                    'id'                => $price->id,
-                    'ram_storage'       => $price->ramStorage->name,
-                    'price_promo'       => $price->price_sale,
-                    'price_normal'      => $price->price_normal,
-                ];
+            foreach($product->prices as $price){
+                if($price->is_sale){
+                    $prices[] = [
+                        'id'                => $price->id,
+                        'ram_storage'       => $price->ramStorage->name,
+                        'price_promo'       => $price->price_sale,
+                        'price_normal'      => $price->price_normal,
+                    ];
+                }
+               
             }
             return $prices;
         }
         // jika request harga semua harga
-        foreach($product->prices as $price){
-            $prices[] = [
-                'id'            => $price->id,
-                'ram_storage'   => $price->ramStorage->name,
-                'price_normal'  => $price->price_normal,
-                'price_promo'   => $price->price_sale
+        else{
+          foreach($product->prices as $price){
+              $prices[] =  [
+                'id'                => $price->id,
+                'ram_storage'       => $price->ramStorage->name,
+                'price_promo'       => $price->price_sale,
+                'price_normal'      => $price->price_normal,
             ];
+          }
+          return $prices;
         }
-        return $prices;
+      
     }
     public static function getImages(ProductColor $color){
         foreach($color->images as $image){
             $images[] = [
                 'id'    => $image->id,
-                'link'  => asset('/storage/'.$image->image) 
+                'link'  => asset($image->image) 
             ];
         }
         return $images;
@@ -106,5 +110,15 @@ class ProductsResourceController extends Controller
            $data[]  = self::product($product,$is_sale);
         }
         return $data;
+    }
+    public static function productsPromo(object $prices){
+        foreach($prices as $price){
+            $products[] = $price->product;
+        }
+        foreach($products as $product){
+            $data[]  = self::product($product,true);
+        }
+        return $data;
+
     }
 }

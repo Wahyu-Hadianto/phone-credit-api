@@ -18,11 +18,11 @@ class ProductController extends Controller
         $ramStorage = StorageRam::all();
         return view('admin.product',compact('brands','products','ramStorage'));
     }
-    public function listProducts(){
-        $products   = Product::all();
-        $colspan    = count(StorageRam::all()) ;
-        return view("admin.products",compact("products","colspan"));
-    }
+    // public function listProducts(){
+    //     $products   = Product::all()->paginate(10);
+    //     $colspan    = count(StorageRam::all()) ;
+    //     return view("admin.products",compact("products","colspan"));
+    // }
     public function getProductByBrand($brandId){
         $products = Product::where('brand_id',$brandId)->get();
         return response()->json([

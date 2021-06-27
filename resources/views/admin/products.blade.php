@@ -89,7 +89,7 @@
                  @foreach ($item->prices as $price)
                     <td>
                       @if ($price->price_sale)
-                      {{ $price->price_sale}} ({{ $price->expired_sale }})</td>
+                      {{ $price->price_sale}} </td>
                       @else
                           -
                       @endif
@@ -121,7 +121,7 @@
                   <th>{{ $image->color_name}}</th>
                   <td colspan="{{ $colspan }}">
                     @foreach ($image->images as $img)
-                    <img src="{{ asset('/storage/'.$img->image )}}" style="max-width: 100px">
+                    <img src="{{ asset($img->image )}}" style="max-width: 100px">
                     @endforeach
                   </td>
                   <td>
