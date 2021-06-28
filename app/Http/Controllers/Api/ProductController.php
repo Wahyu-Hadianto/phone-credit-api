@@ -12,14 +12,84 @@ use function App\helper\getProductText;
 
 class ProductController extends Controller
 {
-    public function getProductsByBrand($slug){
-        $brands = Brand::where('slug',$slug)->first();
-        $products = $brands->products;
-        $products = ProductsResourceController::products($products);
+    public function getProducts(Request $request){
+        if($request->query()){
+            switch ($request) {
+                case $request->has('take'):
+                  return  $this->productTake($request->query('take'));
+                case $request->has('merek'):
+                  return $this->productsMerek($request->query('merek'));
+                case $request->has('search');
+                  return $this->productSearch($request->query('search'));
+                default:
+                return response()->json([
+                    'query'     => $request->all(),
+                    'message'   => 'parameter does not match'
+                ]);
+                    break;
+            }
+        }else{
+            $products   = Product::all();
+            $products = ProductsResourceController::products($products);
+            return response()->json([
+                'products' => $products
+            ],200);
+        }
+    }
+    public function getProduct($request){
+        switch ($request) {
+            case $request->has('slug'):
+              return  $this->productSlug($request->query('slug'));
+            case $request->has('merek'):
+              return $this->productId($request->query('id'));
+              default:
+            return response()->json([
+                'query'     => $request->all(),
+                'message'   => 'parameter does not match'
+            ]);
+                break;
+        }
+    }
+    public function productSearch($name){
+        $products = Product::where('product_name','like','%'.$name.'%')->get();
+        if(!$products){
+            $products = ProductsResourceController::products($products);
+        }
         return response()->json([
-            'brand'     => $brands,
-            'products'  => $products
+            'query'    => [
+                'search'    => $name
+            ],
+            'products' => $products
         ],200);
+    }
+    public function productSlug($slug){
+        $product = Product::where('slug',$slug)->firstOrFail();
+        $product = ProductsResourceController::product($product);
+        return response()->json([
+            'query'     => [
+                'slug'  => $slug
+            ],
+            'product'   => $product
+        ],200);
+    }
+    public function productId($id){
+        $product = Product::findOrFail($id);
+        $product = ProductsResourceController::product($product);
+        return response()->json([
+            'query'     => [
+                'id'    => $id
+            ],
+            'product'   => $product
+        ],200);
+    }
+    public function productsMerek($merek){
+        $products = Brand::where('name',$merek)->firstOrFail();
+        $products = $products->products;
+        $products = ProductsResourceController::products($products);
+            return response()->json([
+                'merek'    => $merek,
+                'products' => $products
+            ],200);
     }
     public function getBrands(){
         $brands = Brand::all();
@@ -27,29 +97,18 @@ class ProductController extends Controller
             'mereks'    => $brands
         ]);
     }
-    public function getProducts(){
-        $products   = Product::all();
-        $products = ProductsResourceController::products($products);
-        return response()->json([
-            'products' => $products
-        ],200);
-    }
-    public function getProductSpesifikasi($id){
-        $product = Product::find($id);
-        $product = ProductsResourceController::productSpesification($product);
-        return response()->json([
-            'product'  => $product 
-        ],200);
 
-    }
-    protected function takeProduct($take){
+    protected function productTake($take){
         $products = Product::all()
                     ->sortDesc()
                     ->take($take);
         $products = ProductsResourceController::products($products);
         return response()->json([
+            'query'      => [
+                'take'    => $take
+            ],
             'products'   => $products
-        ]);
+        ],200);
     }
     protected function getProductsPromo(){
         $prices     = ProductPrice::where('is_sale',true)->get();
@@ -58,13 +117,7 @@ class ProductController extends Controller
             'products'  => $products
         ],200);
     }
-    public function getProduct($slug){
-        $product = Product::where('slug',$slug)->first();
-        $product = ProductsResourceController::product($product);
-        return response()->json([
-            'product'   => $product
-        ],200);
-    }
+    
     public function test(Request $request){
         if($request->has('take')){
             $products = $this->takeProduct($request->query('take'));
@@ -72,7 +125,8 @@ class ProductController extends Controller
                 'query'      => [
                     'take'  => $request->query('take')
                 ],
-                'products'   => $products->original['products']   
+                'products'   => $products->original['products'],
+               
             ]);
         }
         return response()->json([

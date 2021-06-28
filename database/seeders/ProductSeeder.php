@@ -25,7 +25,6 @@ class ProductSeeder extends Seeder
                 'battery'       => '5000 mAh',
                 'display'       => '8 GB & 128 GB',
                 'storage_ram'   => '6.44 "',
-                'is_sale'       =>  true,
                 'brand_id'      => 1,
             ]);
     
@@ -37,7 +36,6 @@ class ProductSeeder extends Seeder
                 'battery'       => '6000 mAh',
                 'display'       => '4 GB & 64 GB',
                 'storage_ram'   => '6.5 "',
-                'is_sale'       =>  false,
                 'brand_id'      => 1
             ]);
     
@@ -49,7 +47,6 @@ class ProductSeeder extends Seeder
                 'battery'       => '6000 mAh',
                 'display'       => '4 GB & 64 GB,4GB & 128 GB',
                 'storage_ram'   => '6.5 "',
-                'is_sale'       =>  true,
                 'brand_id'      => 1
             ]);
     
@@ -61,7 +58,6 @@ class ProductSeeder extends Seeder
                 'battery'       => '5000 mAh',
                 'display'       => '12 GB & 128 GB',
                 'storage_ram'   => '6.5 "',
-                'is_sale'       =>  true,
                 'brand_id'      => 1
             ]);
     
@@ -73,7 +69,6 @@ class ProductSeeder extends Seeder
                 'battery'       => '4100 mAh',
                 'display'       => '8 GB & 128 GB',
                 'storage_ram'   => '6.44 "',
-                'is_sale'       =>  true,
                 'brand_id'      =>  2
             ]);
     
@@ -85,7 +80,6 @@ class ProductSeeder extends Seeder
                 'battery'       => '5000 mAh',
                 'display'       => '8 GB & 128 GB',
                 'storage_ram'   => '6.5 "',
-                'is_sale'       =>  false,
                 'brand_id'      =>  2
             ]);
     
@@ -97,7 +91,6 @@ class ProductSeeder extends Seeder
                 'battery'       => '5000 mAh',
                 'display'       => '8 GB & 128 GB',
                 'storage_ram'   => '6.58 "',
-                'is_sale'       =>  true,
                 'brand_id'      =>  2
             ]);
     
@@ -109,7 +102,6 @@ class ProductSeeder extends Seeder
                 'battery'       => '5000 mAh',
                 'display'       => '8 GB & 128 GB',
                 'storage_ram'   => '6.58 "',
-                'is_sale'       =>  true,
                 'brand_id'      =>  2
             ]);
         }

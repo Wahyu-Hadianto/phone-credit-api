@@ -36,7 +36,6 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::put('/user',[UserUserController::class,'updateUser']);
     Route::post('/user/order',[OrderController::class,'storeOrder']);
     Route::post('/user/avatar',[UserUserController::class,'updateAvatar']);
-
 });
 // Route::get('/products')
 
@@ -46,14 +45,9 @@ Route::get('/mereks',[ProductController::class,'getBrands']);
 
 // =================== Route Product =================
 Route::prefix('/product')->group(function(){
-    Route::get('/{id}/spesifikasi',[ProductController::class,'getProductSpesifikasi']);
-    Route::get('/{id}/price',[ProductPriceController::class,'getProductPrice']);
-    Route::get('/{slug}',[ProductController::class,'getProduct']);
-   
+    Route::get('/',[ProductController::class,'getProduct']);
 });
 Route::prefix('/products')->group(function(){
     Route::get('/',[ProductController::class,'getProducts']);
     Route::get('/promo',[ProductController::class,'getProductsPromo']);
-    Route::get('/take/{count}',[ProductController::class,'takeProduct']);
-    Route::get('/brand/{slug}',[ProductController::class,'getProductsByBrand']);
 });
