@@ -36,7 +36,7 @@ class ProductController extends Controller
             ],200);
         }
     }
-    public function getProduct($request){
+    public function getProduct(Request $request){
         switch ($request) {
             case $request->has('slug'):
               return  $this->productSlug($request->query('slug'));
@@ -52,7 +52,8 @@ class ProductController extends Controller
     }
     public function productSearch($name){
         $products = Product::where('product_name','like','%'.$name.'%')->get();
-        if(!$products){
+      
+        if(count($products) > 0 ){
             $products = ProductsResourceController::products($products);
         }
         return response()->json([
