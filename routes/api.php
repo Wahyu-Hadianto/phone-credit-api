@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProductImageController;
 use App\Http\Controllers\Api\ProductPriceController;
+use App\Http\Controllers\Api\TenorController;
 use App\Http\Controllers\Api\User\OrderController;
 use App\Http\Controllers\Api\User\UserController as UserUserController;
 use App\Http\Controllers\ApiAuth\LoginController;
@@ -40,9 +41,8 @@ Route::middleware('auth:sanctum')->group(function(){
 // Route::get('/products')
 
 // ===================== MEREK =========================
-
+Route::get('/tenor',[TenorController::class,'getTenor']);
 Route::get('/mereks',[ProductController::class,'getBrands']);
-
 // =================== Route Product =================
 Route::prefix('/product')->group(function(){
     Route::get('/',[ProductController::class,'getProduct']);

@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             ColorSeeder::class,
             ImageSeeder::class,
-            PricesSeeder::class
+            PricesSeeder::class,
+            TenorSeeder::class
         ]);
     }
 }

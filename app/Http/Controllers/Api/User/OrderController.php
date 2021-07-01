@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\StorageRam;
+use App\Models\Tenor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -21,10 +22,13 @@ class OrderController extends Controller
                 'errors'    => $errors
             ],412);
         }
-        $user =  Auth::user();
+        $user  =  Auth::user();
+        $tenor =  Tenor::find($request->tenor);
+        $tenorValue = $tenor->tenor;
+        $tenor = floatval($tenor->tenor);
         $dataPrice = $this->getPrice($request->product_id,$request->price_id);
         $price = $dataPrice['price'];
-        $angsuran = ceil($price / $request->tenor);
+        $angsuran = ceil($price / $tenor);
         $ram_storage = $this->getRamStorage( $dataPrice['ram_storage']);
 
         $order = Order::create([
@@ -33,7 +37,7 @@ class OrderController extends Controller
             'ram_storage'   => $ram_storage->name,
             'price'         => $price,
             'color_id'      => $request->color_id,
-            'tenor'         => $request->tenor,
+            'tenor'         => $tenorValue,
             'angsuran'      => $angsuran,
             'status'        => 'Pending',
             'name'          => $request->name,

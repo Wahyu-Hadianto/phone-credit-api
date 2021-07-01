@@ -9,13 +9,16 @@ use Illuminate\Http\Request;
 class UserResourceController extends Controller
 {
     public static function user(User $user ){
+        $orders = [];
+        $orders = OrderResourceController::orders($user->orders);
         return [
             'id'            => $user->id,
             'name'          => $user->name,
             'email'         => $user->email,
-            'avatar'        => asset('/storage/'.$user->avatar),
+            'avatar'        => asset($user->avatar),
             'telepon'       => $user->telepon,
             'address'       => $user->address,
+            'order'         => $orders,
             'created_at'    => $user->created_at
         ];
     }

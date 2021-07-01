@@ -23,7 +23,7 @@ class CreateOrdersTable extends Migration
             $table->string('ram_storage');
             $table->bigInteger('price');
             $table->integer('color_id');
-            $table->integer('tenor');
+            $table->string('tenor');
             $table->bigInteger('angsuran');
             $table->string('status');
             $table->string('name');
