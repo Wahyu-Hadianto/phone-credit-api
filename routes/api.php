@@ -26,7 +26,6 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::get('/test/',[ProductController::class,'test']);
 Route::post('/register',[RegisterController::class,'register']);
 Route::post('/login',[LoginController::class,'login']);
 Route::get('/logout',[LoginController::class,'logout']);
@@ -46,8 +45,10 @@ Route::get('/mereks',[ProductController::class,'getBrands']);
 // =================== Route Product =================
 Route::prefix('/product')->group(function(){
     Route::get('/',[ProductController::class,'getProduct']);
+    Route::get('/slug/{slug}',[ProductController::class,'productSlug']);
 });
 Route::prefix('/products')->group(function(){
     Route::get('/',[ProductController::class,'getProducts']);
+    Route::get('/search/{name}',[ProductController::class,'productSearch']);
     Route::get('/promo',[ProductController::class,'getProductsPromo']);
 });
