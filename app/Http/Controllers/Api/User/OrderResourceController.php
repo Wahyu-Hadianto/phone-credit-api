@@ -43,6 +43,7 @@ class OrderResourceController extends Controller
         ];
     }
     public static function orders(object $orders){
+        $result = [];
         foreach($orders as $order){
             $result[] =  self::order($order);
         }
