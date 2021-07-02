@@ -52,9 +52,9 @@ class ProductController extends Controller
     }
     public function productSearch($name){
         $products = Product::where('product_name','LIKE','%'.$name.'%')->get();
-        if(count($products) > 0 ){
-            $products = ProductsResourceController::products($products);
-        }
+        // if(count($products) > 0 ){
+        //     $products = ProductsResourceController::products($products);
+        // }
         return response()->json([
             'query'    => [
                 'search'    => $name
