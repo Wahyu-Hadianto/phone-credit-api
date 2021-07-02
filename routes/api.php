@@ -49,6 +49,7 @@ Route::prefix('/product')->group(function(){
 });
 Route::prefix('/products')->group(function(){
     Route::get('/',[ProductController::class,'getProducts']);
+    Route::get('/take/{count}',[ProductController::class,'productTake']);
     Route::get('/search/{name}',[ProductController::class,'productSearch']);
     Route::get('/promo',[ProductController::class,'getProductsPromo']);
 });
